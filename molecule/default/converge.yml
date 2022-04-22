@@ -14,3 +14,11 @@
 
   roles:
     - role: ansible-role-f5ansible
+
+  tasks:
+    - name: Create virtual server
+      f5networks.f5_modules.virtual_server:
+        name: virt1
+        destination: 2.1.3.4
+        port: 9000
+        provider: "{{ provider }}"
