@@ -5,6 +5,10 @@
   when:
     - ansible_version.full is version_compare('2.8', '<')
 
+- name: Install ipaddress python package
+  pip:
+    name: ipaddress
+
 - name: Create virtual server
   f5networks.f5_modules.bigip_virtual_server:
     name: virt1
