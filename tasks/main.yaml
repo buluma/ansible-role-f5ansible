@@ -4,3 +4,19 @@
     msg: "This role works best with ansible version 2.8 or greater. It is recommended to use the latest ansible version for the best experience."
   when:
     - ansible_version.full is version_compare('2.8', '<')
+
+
+- name: Create virtual server
+  bigip_virtual_server:
+    name: virt1
+    destination: 2.1.3.4
+    port: 9000
+    description: My description
+    snat: Automap
+    pool: pool1
+    provider:
+      user: admin
+      server: 1.1.1.1
+      password: secret
+      validate_certs: no
+  register: result
