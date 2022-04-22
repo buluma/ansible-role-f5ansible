@@ -1,0 +1,8 @@
+---
+#
+# Ansible managed
+#
+repository:
+  description: Install F5 modules on your system.
+  homepage: https://buluma.github.io/
+  topics: f5, networking, bigip, bigiq, ansible, molecule, tox, playbook, hacktoberfest

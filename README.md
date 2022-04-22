@@ -1,132 +1,92 @@
-# f5devcentral.f5ansible
+# [f5ansible](#f5ansible)
 
-Using this role, you will be able to use the latest version, and version specific F5 Networks
-Ansible Modules.
+Install F5 modules on your system.
 
-**With official release of collections with Ansible 2,9, this role will be deprecated and no longer updated.
-The last updated and released version of the role will be v2019.9.27.**
+|GitHub|GitLab|Quality|Downloads|Version|Issues|Pull Requests|
+|------|------|-------|---------|-------|------|-------------|
+|[![github](https://github.com/buluma/ansible-role-f5ansible/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-f5ansible/actions)|[![gitlab](https://gitlab.com/buluma/ansible-role-f5ansible/badges/master/pipeline.svg)](https://gitlab.com/buluma/ansible-role-f5ansible)|[![quality](https://img.shields.io/ansible/quality/)](https://galaxy.ansible.com/buluma/f5ansible)|[![downloads](https://img.shields.io/ansible/role/d/)](https://galaxy.ansible.com/buluma/f5ansible)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-f5ansible.svg)](https://github.com/buluma/ansible-role-f5ansible/releases/)|[![Issues](https://img.shields.io/github/issues/buluma/ansible-role-f5ansible.svg)](https://github.com/buluma/ansible-role-f5ansible/issues/)|[![PullRequests](https://img.shields.io/github/issues-pr-closed-raw/buluma/ansible-role-f5ansible.svg)](https://github.com/buluma/ansible-role-f5ansible/pulls/)|
 
+## [Example Playbook](#example-playbook)
 
-## Requirements
-
- - python >= 2.7
-
-Due to removal of certain legacy paramaters, to ensure all of the elements function correctly the Ansible 
-requirement has been changed to 2.9 or higher starting for versions later than **v2019.8.2.** 
-Requirements are listed in the metadata file.
-
-## Installation
-
-This role is released in two forms.
-
-* daily
-* bi-weekly
-
-The form that you choose should be based on your tolerance for unstable code. F5 makes
-**no** guarantees that the bi-weekly release is more stable. However, it aligns with
-some individual's tolerance for product updates.
- 
-For instance, updating daily can be a burden to the maintainer of the playbooks and
-can introduce problems at a time that is untenable for them. In this case, a bi-weekly
-update is more logical.
-
-On the other hand, some people prefer to live on the edge of technology, and for those
-people, a daily build is acceptable. 
-
-To install the bi-weekly build of the F5 Networks Ansible Role, please issue the command
-on the machine you will run Ansible from.
-
-```
-ansible-galaxy install -f f5devcentral.f5ansible
-```
-
-To install the daily build of the F5 Networks Ansible Role, please issue the command
-on the machine you will run Ansible from.
-
-```
-ansible-galaxy install -f f5devcentral.f5ansible,master
-```
-
-For more information please visit http://docs.ansible.com/ansible/galaxy.html
-
-## Role Variables
-
-Available variables are listed below, along with default values (see `defaults/main.yml`):
-
-    f5ansible_debug: no
-
-Enables the installation and configuration of debugging functionality. This is useful when
-working with the F5 Networks Ansible developers to debug problems.
-
-## Example Playbooks
-
-The following example is generic, applies to any module.
-
-```
-
+This example is taken from `molecule/default/converge.yml` and is tested on each push, pull request and release.
+```yaml
 ---
+- name: Converge
+  hosts: all
+  become: yes
+  gather_facts: yes
 
-- hosts: localhost
-  connection: local
+  vars:
+    etherpad_port: 9002
 
   roles:
-    - role: f5devcentral.f5ansible
-
-  tasks:
-    - name: Some task
-      bigip_<module_name>:
-        provider:
-          server: 1.1.1.1
-          user: admin
-          password: secret
-      ......
+    - role: buluma.f5ansible
 ```
 
-This example shows usage of the bigip_virtual_server module included in this role.
-
-```
-
+The machine needs to be prepared. In CI this is done using `molecule/default/prepare.yml`:
+```yaml
 ---
-
-- hosts: localhost
-  connection: local
+- name: Prepare
+  hosts: all
+  gather_facts: no
+  become: yes
 
   roles:
-    - role: f5devcentral.f5ansible
-
-  tasks:
-    - name: Create virtual server
-      bigip_virtual_server:
-        name: virt1
-        destination: 2.1.3.4
-        port: 9000
-        description: My description
-        snat: Automap
-        pool: pool1
-        provider:
-          user: admin
-          server: 1.1.1.1
-          password: secret
-          validate_certs: no
-  register: result
+    - role: buluma.bootstrap
 ```
 
-There are many more examples located at in the ``EXAMPLES`` within each module.
 
-## License
 
-Apache 2.0
+## [Requirements](#requirements)
 
-## Releases
+- pip packages listed in [requirements.txt](https://github.com/buluma/ansible-role-f5ansible/blob/main/requirements.txt).
 
-This role is updated in Ansible Galaxy on a bi-weekly basis. If you want to install
-an interim release of this role, use the following ``ansible-galaxy`` command
+## [Status of used roles](#status-of-requirements)
 
-    ansible-galaxy install f5devcentral.f5ansible,master
+The following roles are used to prepare a system. You can prepare your system in another way.
 
-Note the inclusion of the "comma" and "master" at the end of the command. 
+| Requirement | GitHub | GitLab |
+|-------------|--------|--------|
+|[buluma.bootstrap](https://galaxy.ansible.com/buluma/bootstrap)|[![Build Status GitHub](https://github.com/buluma/ansible-role-bootstrap/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-bootstrap/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-bootstrap/badges/master/pipeline.svg)](https://gitlab.com/buluma/ansible-role-bootstrap)|
 
-## Author Information
+## [Context](#context)
 
-F5 Networks
-[F5 Networks](http://www.f5.com)
+This role is a part of many compatible roles. Have a look at [the documentation of these roles](https://buluma.co.ke/) for further information.
+
+Here is an overview of related roles:
+
+![dependencies](https://raw.githubusercontent.com/buluma/ansible-role-f5ansible/png/requirements.png "Dependencies")
+
+## [Compatibility](#compatibility)
+
+This role has been tested on these [container images](https://hub.docker.com/u/buluma):
+
+|container|tags|
+|---------|----|
+|amazon|Candidate|
+|el|7, 8|
+|ubuntu|all|
+|debian|all|
+|fedora|all|
+
+The minimum version of Ansible required is 2.1, tests have been done to:
+
+- The previous version.
+- The current version.
+- The development version.
+
+
+
+If you find issues, please register them in [GitHub](https://github.com/buluma/ansible-role-f5ansible/issues)
+
+## [Changelog](#changelog)
+
+[Role History](https://github.com/buluma/ansible-role-f5ansible/blob/master/CHANGELOG.md)
+
+## [License](#license)
+
+Apache-2.0
+
+## [Author Information](#author-information)
+
+[Michael Buluma](https://buluma.github.io/)
