@@ -4,5 +4,13 @@
   become: yes
   gather_facts: yes
 
+  vars:
+    provider:
+      user: admin
+      server: "{{ ansible_host }}"
+      server_port: 443
+      password: admin
+      validate_certs: no
+
   roles:
     - role: ansible-role-f5ansible
