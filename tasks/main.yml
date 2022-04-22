@@ -6,11 +6,11 @@
     - ansible_version.full is version_compare('2.8', '<')
 
 - name: Create virtual server
-  bigip_virtual_server:
+  f5networks.f5_modules.virtual_server:
     name: virt1
     destination: 2.1.3.4
     port: 9000
-    description: My description
+    description: My virtual server
     snat: Automap
     pool: pool1
     provider:
@@ -21,8 +21,8 @@
   register: result
 
 - name: Create virtual server with var
-  bigip_virtual_server:
-    name: virt1
-    destination: 2.1.3.4
-    port: 9000
+  f5networks.f5_modules.virtual_server:
+    name: virt2
+    destination: 2.1.3.5
+    port: 0
     provider: "{{ provider }}"
