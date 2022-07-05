@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased](https://github.com/buluma/ansible-role-f5ansible/tree/HEAD)
+
+[Full Changelog](https://github.com/buluma/ansible-role-f5ansible/compare/v0.1.0...HEAD)
+
+**Merged pull requests:**
+
+- Bump buluma/galaxy-action from 1.0.3 to 6.25.22 [\#4](https://github.com/buluma/ansible-role-f5ansible/pull/4) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump buluma/gh-action-auto-merge-dependabot-updates from 1.0.4 to 1.0.5 [\#3](https://github.com/buluma/ansible-role-f5ansible/pull/3) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.1.0](https://github.com/buluma/ansible-role-f5ansible/tree/v0.1.0) (2022-04-22)
 
 [Full Changelog](https://github.com/buluma/ansible-role-f5ansible/compare/0a40360b34dfa6561495902c9d880ec9e2c31b36...v0.1.0)
