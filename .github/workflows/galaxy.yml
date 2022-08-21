@@ -5,7 +5,6 @@
 
 name: Release to Ansible Galaxy
 
-# TODO: add to tracker
 on:
   release:
     types: [created, edited, published, released]
