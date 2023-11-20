@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/buluma/ansible-role-f5ansible/compare/v0.1.0...HEAD)
 
+**Closed issues:**
+
+- add to tracker [\#1](https://github.com/buluma/ansible-role-f5ansible/issues/1)
+
 **Merged pull requests:**
 
 - Bump buluma/galaxy-action from 1.0.3 to 6.25.22 [\#4](https://github.com/buluma/ansible-role-f5ansible/pull/4) ([dependabot[bot]](https://github.com/apps/dependabot))
