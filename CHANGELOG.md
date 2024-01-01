@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/buluma/ansible-role-f5ansible/tree/HEAD)
+## [v0.1.2](https://github.com/buluma/ansible-role-f5ansible/tree/v0.1.2) (2023-12-28)
 
-[Full Changelog](https://github.com/buluma/ansible-role-f5ansible/compare/v0.1.1...HEAD)
+[Full Changelog](https://github.com/buluma/ansible-role-f5ansible/compare/v0.1.1...v0.1.2)
 
 **Closed issues:**
 
