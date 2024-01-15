@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/buluma/ansible-role-f5ansible/tree/HEAD)
+
+[Full Changelog](https://github.com/buluma/ansible-role-f5ansible/compare/v0.2.0...HEAD)
+
+**Merged pull requests:**
+
+- Bump actions/checkout from 3 to 4 [\#13](https://github.com/buluma/ansible-role-f5ansible/pull/13) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.2.0](https://github.com/buluma/ansible-role-f5ansible/tree/v0.2.0) (2024-01-02)
 
 [Full Changelog](https://github.com/buluma/ansible-role-f5ansible/compare/v0.1.2...v0.2.0)
