@@ -19,6 +19,7 @@
 - Bump buluma/molecule-action from 6.0.1 to 6.0.3 [\#16](https://github.com/buluma/ansible-role-f5ansible/pull/16) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump buluma/molecule-action from 6.0.0 to 6.0.1 [\#15](https://github.com/buluma/ansible-role-f5ansible/pull/15) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump actions/checkout from 3 to 4 [\#13](https://github.com/buluma/ansible-role-f5ansible/pull/13) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump buluma/galaxy-action from 1.0.3 to 6.25.22 [\#4](https://github.com/buluma/ansible-role-f5ansible/pull/4) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v0.2.0](https://github.com/buluma/ansible-role-f5ansible/tree/v0.2.0) (2024-01-02)
 
@@ -42,7 +43,6 @@
 
 **Merged pull requests:**
 
-- Bump buluma/galaxy-action from 1.0.3 to 6.25.22 [\#4](https://github.com/buluma/ansible-role-f5ansible/pull/4) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump buluma/gh-action-auto-merge-dependabot-updates from 1.0.4 to 1.0.5 [\#3](https://github.com/buluma/ansible-role-f5ansible/pull/3) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v0.1.0](https://github.com/buluma/ansible-role-f5ansible/tree/v0.1.0) (2022-04-22)
