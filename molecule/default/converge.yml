@@ -13,4 +13,4 @@
       validate_certs: no
 
   roles:
-    - role: ansible-role-f5ansible
+    - role: buluma.f5ansible
