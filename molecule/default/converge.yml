@@ -1,16 +1,16 @@
 ---
-- name: Converge
-  hosts: all
-  become: yes
-  gather_facts: yes
+  - name: Converge
+    hosts: all
+    become: yes
+    gather_facts: yes
 
-  vars:
-    provider:
-      user: admin
-      server: "{{ ansible_host }}"
-      server_port: 443
-      password: admin
-      validate_certs: no
+    vars:
+      provider:
+        user: admin
+        server: "{{ ansible_host }}"
+        server_port: 443
+        password: admin
+        validate_certs: no
 
-  roles:
-    - role: buluma.f5ansible
+    roles:
+      - role: buluma.f5ansible
