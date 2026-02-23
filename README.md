@@ -12,35 +12,35 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 
 ```yaml
 ---
-  - name: Converge
-    hosts: all
-    become: yes
-    gather_facts: yes
+- name: Converge
+  hosts: all
+  become: yes
+  gather_facts: yes
 
-    vars:
-      provider:
-        user: admin
-        server: "{{ ansible_host }}"
-        server_port: 443
-        password: admin
-        validate_certs: no
+  vars:
+    provider:
+      user: admin
+      server: "{{ ansible_host }}"
+      server_port: 443
+      password: admin
+      validate_certs: no
 
-    roles:
-      - role: buluma.f5ansible
+  roles:
+  - role: buluma.f5ansible
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-f5ansible/blob/master/molecule/default/prepare.yml):
 
 ```yaml
 ---
-  - name: Prepare
-    hosts: all
-    gather_facts: no
-    become: yes
+- name: Prepare
+  hosts: all
+  gather_facts: no
+  become: yes
 
-    roles:
-      - role: buluma.bootstrap
-      - role: buluma.pip
+  roles:
+  - role: buluma.bootstrap
+  - role: buluma.pip
 ```
 
 Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
