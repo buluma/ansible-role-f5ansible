@@ -5,5 +5,5 @@
   become: yes
 
   roles:
-  - role: buluma.bootstrap
-  - role: buluma.pip
+    - role: buluma.bootstrap
+    - role: buluma.pip
