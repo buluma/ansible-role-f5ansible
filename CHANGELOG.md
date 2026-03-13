@@ -9,6 +9,10 @@
 - Update action [\#10](https://github.com/buluma/ansible-role-f5ansible/issues/10)
 - rebuild action [\#9](https://github.com/buluma/ansible-role-f5ansible/issues/9)
 
+**Merged pull requests:**
+
+- Bump docker/setup-buildx-action from 3 to 4 [\#26](https://github.com/buluma/ansible-role-f5ansible/pull/26) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v24.3.31](https://github.com/buluma/ansible-role-f5ansible/tree/v24.3.31) (2024-03-29)
 
 [Full Changelog](https://github.com/buluma/ansible-role-f5ansible/compare/v0.3.0...v24.3.31)
