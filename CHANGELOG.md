@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/buluma/ansible-role-f5ansible/tree/HEAD)
+## [v26.6.1](https://github.com/buluma/ansible-role-f5ansible/tree/v26.6.1) (2026-06-14)
 
-[Full Changelog](https://github.com/buluma/ansible-role-f5ansible/compare/v26.6.0...HEAD)
+[Full Changelog](https://github.com/buluma/ansible-role-f5ansible/compare/v26.6.0...v26.6.1)
 
 **Closed issues:**
 
