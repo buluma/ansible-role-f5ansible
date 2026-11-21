@@ -178,7 +178,6 @@ server:
 import re
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils.six import iteritems
 from ansible.module_utils.parsing.convert_bool import BOOLEANS_TRUE
 from distutils.version import LooseVersion
 
@@ -284,7 +283,7 @@ class UntypedManager(BaseManager):
         facts = self.read_facts()
         for item in facts:
             attrs = item.to_return()
-            filtered = [(k, v) for k, v in iteritems(attrs) if self.filter_matches_name(k)]
+            filtered = [(k, v) for k, v in getattr(attrs, 'iteritems', attrs.items)() if self.filter_matches_name(k)]
             if filtered:
                 results.append(dict(filtered))
         return results
@@ -293,7 +292,7 @@ class UntypedManager(BaseManager):
 class TypedManager(BaseManager):
     def exec_module(self):
         results = []
-        for collection, type in iteritems(self.types):
+        for collection, type in getattr(self.types, 'iteritems', self.types.items)():
             facts = self.read_facts(collection)
             if not facts:
                 continue
@@ -301,7 +300,7 @@ class TypedManager(BaseManager):
                 x.update({'type': type})
             for item in facts:
                 attrs = item.to_return()
-                filtered = [(k, v) for k, v in iteritems(attrs) if self.filter_matches_name(k)]
+                filtered = [(k, v) for k, v in getattr(attrs, 'iteritems', attrs.items)() if self.filter_matches_name(k)]
                 if filtered:
                     results.append(dict(filtered))
         return results

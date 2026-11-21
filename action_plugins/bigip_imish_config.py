@@ -25,7 +25,10 @@ import re
 from ansible.plugins.action.bigip import ActionModule as _ActionModule
 from ansible.module_utils._text import to_text
 from ansible.module_utils.network.common.backup import write_backup
-from ansible.module_utils.six.moves.urllib.parse import urlsplit
+try:
+    from urllib.parse import urlsplit
+except ImportError:  # Python 2 managed nodes
+    from urlparse import urlsplit
 
 try:
     from library.module_utils.network.f5.common import f5_provider_spec

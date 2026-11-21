@@ -76,7 +76,10 @@ RETURN = r'''
 import time
 import ssl
 
-from ansible.module_utils.six.moves.urllib.error import URLError
+try:
+    from urllib.error import URLError
+except ImportError:  # Python 2 managed nodes
+    from urllib2 import URLError
 from ansible.module_utils.urls import urlparse
 from ansible.module_utils.basic import AnsibleModule
 

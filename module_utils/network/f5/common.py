@@ -16,7 +16,6 @@ from ansible.module_utils.basic import env_fallback
 from ansible.module_utils.connection import exec_command
 from ansible.module_utils.network.common.utils import to_list
 from ansible.module_utils.network.common.utils import ComplexList
-from ansible.module_utils.six import iteritems
 from ansible.module_utils.parsing.convert_bool import BOOLEANS_TRUE
 from ansible.module_utils.parsing.convert_bool import BOOLEANS_FALSE
 from collections import defaultdict
@@ -70,7 +69,7 @@ def get_provider_argspec():
 
 def load_params(params):
     provider = params.get('provider') or dict()
-    for key, value in iteritems(provider):
+    for key, value in getattr(provider, 'iteritems', provider.items)():
         if key in f5_argument_spec:
             if params.get(key) is None and value is not None:
                 params[key] = value
@@ -508,7 +507,7 @@ class AnsibleF5Parameters(object):
     def update(self, params=None):
         if params:
             self._params.update(params)
-            for k, v in iteritems(params):
+            for k, v in getattr(params, 'iteritems', params.items)():
                 # Adding this here because ``username`` is a connection parameter
                 # and in cases where it is also an API parameter, we run the risk
                 # of overriding the specified parameter with the connection parameter.
@@ -566,7 +565,7 @@ class AnsibleF5Parameters(object):
         self._values['partition'] = value
 
     def _filter_params(self, params):
-        return dict((k, v) for k, v in iteritems(params) if v is not None)
+        return dict((k, v) for k, v in getattr(params, 'iteritems', params.items)() if v is not None)
 
 
 class F5ModuleError(Exception):

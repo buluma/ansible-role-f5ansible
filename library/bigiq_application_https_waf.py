@@ -264,7 +264,6 @@ import time
 
 from distutils.version import LooseVersion
 from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils.six import string_types
 
 try:
     from library.module_utils.network.f5.bigiq import F5RestClient
@@ -648,7 +647,7 @@ class UsableChanges(Changes):
             return None
 
         kc = self.client_ssl_profile['cert_key_chain']
-        if isinstance(kc, string_types) and kc != 'inherit':
+        if isinstance(kc, (str, type(u''))) and kc != 'inherit':
             raise F5ModuleError(
                 "Only the 'inherit' setting is available when 'cert_key_chain' is a string."
             )

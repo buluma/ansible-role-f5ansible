@@ -211,7 +211,6 @@ protocol_name:
 '''
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils.six import string_types
 
 try:
     from library.module_utils.network.f5.bigip import F5RestClient
@@ -321,7 +320,7 @@ class TacacsModuleParameters(TacacsParameters):
                     )
                 address = server.get('address')
                 port = server.get('port', 49163)
-            elif isinstance(server, string_types):
+            elif isinstance(server, (str, type(u''))):
                 address = server
                 port = 49163
             result.append('{0}:{1}'.format(address, port))

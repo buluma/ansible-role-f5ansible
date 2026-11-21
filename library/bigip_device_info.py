@@ -7071,8 +7071,6 @@ import time
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.network.common.utils import to_netmask
 from ansible.module_utils.parsing.convert_bool import BOOLEANS_TRUE
-from ansible.module_utils.six import iteritems
-from ansible.module_utils.six import string_types
 from collections import namedtuple
 from distutils.version import LooseVersion
 
@@ -7143,7 +7141,7 @@ class BaseManager(object):
 class Parameters(AnsibleF5Parameters):
     @property
     def gather_subset(self):
-        if isinstance(self._values['gather_subset'], string_types):
+        if isinstance(self._values['gather_subset'], (str, type(u''))):
             self._values['gather_subset'] = [self._values['gather_subset']]
         elif not isinstance(self._values['gather_subset'], list):
             raise F5ModuleError(
@@ -7328,7 +7326,7 @@ class AsmPolicyFactParameters(BaseParameters):
     ]
 
     def _morph_keys(self, key_map, item):
-        for k, v in iteritems(key_map):
+        for k, v in getattr(key_map, 'iteritems', key_map.items)():
             item[v] = item.pop(k, None)
         result = self._filter_params(item)
         return result
@@ -8547,7 +8545,7 @@ class ExternalMonitorsParameters(BaseParameters):
         if self._values['variables'] is None:
             return None
         result = {}
-        for k, v in iteritems(self._values['variables']):
+        for k, v in getattr(self._values['variables'], 'iteritems', self._values['variables'].items)():
             k = k.replace('userDefined ', '').strip()
             result[k] = v
         return result
@@ -11786,7 +11784,7 @@ class LtmPoolsParameters(BaseParameters):
             else:
                 member['state'] = 'disabled'
             self._remove_internal_keywords(member)
-            member = dict([(k, v) for k, v in iteritems(member) if v is not None])
+            member = dict([(k, v) for k, v in getattr(member, 'iteritems', member.items)() if v is not None])
             result.append(member)
         return result
 
@@ -13566,12 +13564,12 @@ class SystemInfoParameters(BaseParameters):
         if self._values['hardware-version'] is None:
             return None
         self._transform_name_attribute(self._values['hardware-version'])
-        result = [v for k, v in iteritems(self._values['hardware-version'])]
+        result = [v for k, v in getattr(self._values['hardware-version'], 'iteritems', self._values['hardware-version'].items)()]
         return result
 
     def _transform_name_attribute(self, entry):
         if isinstance(entry, dict):
-            for k, v in iteritems(entry):
+            for k, v in getattr(entry, 'iteritems', entry.items)():
                 if k == 'tmName':
                     entry['name'] = entry.pop('tmName')
                 self._transform_name_attribute(v)
@@ -16442,7 +16440,7 @@ def main():
 
         ansible_facts = dict()
 
-        for key, value in iteritems(results):
+        for key, value in getattr(results, 'iteritems', results.items)():
             key = 'ansible_net_%s' % key
             ansible_facts[key] = value
 

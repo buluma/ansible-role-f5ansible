@@ -822,8 +822,6 @@ import math
 import re
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils.six import iteritems
-from ansible.module_utils.six import string_types
 
 try:
     from library.module_utils.network.f5.bigiq import F5RestClient
@@ -912,7 +910,7 @@ class BaseManager(object):
 class Parameters(AnsibleF5Parameters):
     @property
     def gather_subset(self):
-        if isinstance(self._values['gather_subset'], string_types):
+        if isinstance(self._values['gather_subset'], (str, type(u''))):
             self._values['gather_subset'] = [self._values['gather_subset']]
         elif not isinstance(self._values['gather_subset'], list):
             raise F5ModuleError(
@@ -1624,12 +1622,12 @@ class SystemInfoParameters(BaseParameters):
         if self._values['hardware-version'] is None:
             return None
         self._transform_name_attribute(self._values['hardware-version'])
-        result = [v for k, v in iteritems(self._values['hardware-version'])]
+        result = [v for k, v in getattr(self._values['hardware-version'], 'iteritems', self._values['hardware-version'].items)()]
         return result
 
     def _transform_name_attribute(self, entry):
         if isinstance(entry, dict):
-            for k, v in iteritems(entry):
+            for k, v in getattr(entry, 'iteritems', entry.items)():
                 if k == 'tmName':
                     entry['name'] = entry.pop('tmName')
                 self._transform_name_attribute(v)

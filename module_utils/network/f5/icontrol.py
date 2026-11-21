@@ -89,7 +89,10 @@ print(resp.json())
 ```
 """
 
-from ansible.module_utils.six.moves.urllib.error import HTTPError
+try:
+    from urllib.error import HTTPError
+except ImportError:  # Python 2 managed nodes
+    from urllib2 import HTTPError
 
 
 class Response(object):

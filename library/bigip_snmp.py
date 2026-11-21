@@ -127,7 +127,6 @@ allowed_addresses:
 '''
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils.six import string_types
 
 try:
     from library.module_utils.network.f5.bigip import F5RestClient
@@ -199,7 +198,7 @@ class ModuleParameters(Parameters):
             return None
         result = []
         addresses = self._values['allowed_addresses']
-        if isinstance(addresses, string_types):
+        if isinstance(addresses, (str, type(u''))):
             if addresses in ['', 'none']:
                 return []
             else:

@@ -228,7 +228,6 @@ weight:
 
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.basic import env_fallback
-from ansible.module_utils.six import iteritems
 
 try:
     from library.module_utils.network.f5.bigip import F5RestClient
@@ -730,7 +729,7 @@ class ModuleParameters(Parameters):
 
     def _format_options(self, options):
         negate = None
-        cleaned = dict((k, v) for k, v in iteritems(options) if v is not None)
+        cleaned = dict((k, v) for k, v in getattr(options, 'iteritems', options.items)() if v is not None)
         if 'country' and 'state' in cleaned.keys():
             del cleaned['country']
         if 'negate' in cleaned.keys():

@@ -211,7 +211,6 @@ from ansible.module_utils.network.common.parsing import FailedConditionsError
 from ansible.module_utils.network.common.parsing import Conditional
 from ansible.module_utils.network.common.utils import ComplexList
 from ansible.module_utils.network.common.utils import to_list
-from ansible.module_utils.six import string_types
 from collections import deque
 
 
@@ -281,7 +280,7 @@ class Parameters(AnsibleF5Parameters):
     def raw_commands(self):
         if self._values['commands'] is None:
             return []
-        if isinstance(self._values['commands'], string_types):
+        if isinstance(self._values['commands'], (str, type(u''))):
             result = [self._values['commands']]
         else:
             result = self._values['commands']
@@ -422,7 +421,7 @@ class BaseManager(object):
     def _to_lines(self, stdout):
         lines = list()
         for item in stdout:
-            if isinstance(item, string_types):
+            if isinstance(item, (str, type(u''))):
                 item = item.split('\n')
             lines.append(item)
         return lines

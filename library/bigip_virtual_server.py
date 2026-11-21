@@ -875,7 +875,6 @@ import re
 
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.basic import env_fallback
-from ansible.module_utils.six import iteritems
 from collections import namedtuple
 
 try:
@@ -1582,7 +1581,7 @@ class ApiParameters(Parameters):
 
     @property
     def profile_types(self):
-        return [x['name'] for x in iteritems(self.profiles)]
+        return [x['name'] for x in getattr(self.profiles, 'iteritems', self.profiles.items)()]
 
     @property
     def policies(self):
@@ -2111,7 +2110,7 @@ class ModuleParameters(Parameters):
             return []
         result = []
         try:
-            for k, v in iteritems(self._values['metadata']):
+            for k, v in getattr(self._values['metadata'], 'iteritems', self._values['metadata'].items)():
                 tmp = dict(name=str(k))
                 if v:
                     tmp['value'] = str(v)
@@ -3008,7 +3007,7 @@ class Difference(object):
     def to_tuple(self, items):
         result = []
         for x in items:
-            tmp = [(str(k), str(v)) for k, v in iteritems(x)]
+            tmp = [(str(k), str(v)) for k, v in getattr(x, 'iteritems', x.items)()]
             result += tmp
         return result
 

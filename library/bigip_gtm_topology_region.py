@@ -161,8 +161,6 @@ region_members:
 import copy
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.basic import env_fallback
-from ansible.module_utils.six import string_types
-from ansible.module_utils.six import iteritems
 
 try:
     from library.module_utils.network.f5.bigip import F5RestClient
@@ -492,7 +490,7 @@ class ModuleParameters(Parameters):
         negate = None
         if self._values['region_members'] is None:
             return None
-        if isinstance(self._values['region_members'], string_types):
+        if isinstance(self._values['region_members'], (str, type(u''))):
             return self._values['region_members']
         if not isinstance(self._values['region_members'], list):
             raise F5ModuleError(
@@ -509,7 +507,7 @@ class ModuleParameters(Parameters):
 
                 negate = self._flatten_negate(member)
 
-            for key, value in iteritems(member):
+            for key, value in getattr(member, 'iteritems', member.items)():
                 if negate:
                     output = self._change_value(key, value)
                     item = "{0} {1} {2}".format(negate, output[0], output[1])

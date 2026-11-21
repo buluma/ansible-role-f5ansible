@@ -90,7 +90,6 @@ RETURN = r'''
 '''
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils.six import iteritems
 
 import re
 import time
@@ -146,7 +145,7 @@ class LicenseXmlParser(object):
         if len(root) == 0:
             return None
         for elem in root:
-            for k, v in iteritems(elem.attrib):
+            for k, v in getattr(elem.attrib, 'iteritems', elem.attrib.items)():
                 if value in v:
                     return elem
 
