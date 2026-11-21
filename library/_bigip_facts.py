@@ -93,9 +93,12 @@ import fnmatch
 import re
 import traceback
 
+try:
+    from itertools import izip as zip
+except ImportError:  # Python 3
+    pass
+
 from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils.six import string_types
-from ansible.module_utils.six.moves import zip
 
 try:
     from library.module_utils.network.f5.legacy import bigip_api, bigsuds_found
@@ -1715,7 +1718,7 @@ def main():
         regex = fnmatch.translate(fact_filter)
     else:
         regex = None
-    if isinstance(module.params['include'], string_types):
+    if isinstance(module.params['include'], (str, type(u''))):
         includes = module.params['include'].split(',')
     else:
         includes = module.params['include']

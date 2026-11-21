@@ -112,8 +112,6 @@ action:
 
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils.six import iteritems
-from ansible.module_utils.six import string_types
 
 try:
     from library.module_utils.network.f5.bigip import F5RestClient
@@ -228,7 +226,7 @@ class ModuleParameters(Parameters):
     def content(self):
         if self._values['content'] is None:
             return None
-        if isinstance(self._values['content'], string_types):
+        if isinstance(self._values['content'], (str, type(u''))):
             return json.loads(self._values['content'] or 'null')
         else:
             return self._values['content']
@@ -422,7 +420,7 @@ class ModuleManager(object):
                 obj['passphrase']['ignoreChanges'] = True
             if 'class' in obj and obj['class'] == 'WAF_Policy':
                 obj['ignoreChanges'] = True
-            return dict((k, self.ignore_changes(v)) for k, v in iteritems(obj))
+            return dict((k, self.ignore_changes(v)) for k, v in getattr(obj, 'iteritems', obj.items)())
         else:
             return obj
 

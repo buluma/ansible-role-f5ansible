@@ -213,7 +213,6 @@ aliases:
 
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.basic import env_fallback
-from ansible.module_utils.six import iteritems
 from distutils.version import LooseVersion
 
 try:
@@ -478,7 +477,7 @@ class Difference(object):
     def to_tuple(self, items):
         result = []
         for x in items:
-            tmp = [(str(k), str(v)) for k, v in iteritems(x)]
+            tmp = [(str(k), str(v)) for k, v in getattr(x, 'iteritems', x.items)()]
             result += tmp
         return result
 

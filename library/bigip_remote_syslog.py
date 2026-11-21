@@ -99,7 +99,6 @@ local_ip:
 '''
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils.six import iteritems
 
 try:
     from library.module_utils.network.f5.bigip import F5RestClient
@@ -338,7 +337,7 @@ class ModuleManager(object):
         if self.want.name is None:
             self.want.update({'name': self.want.remote_host})
 
-            syslogs = [v for k, v in iteritems(self.syslogs)]
+            syslogs = [v for k, v in getattr(self.syslogs, 'iteritems', self.syslogs.items)()]
             dupes = [x for x in syslogs if x['host'] == self.want.remote_host]
             if len(dupes) > 1:
                 raise F5ModuleError(
@@ -381,7 +380,7 @@ class ModuleManager(object):
         # There are **not** individual API endpoints for the individual syslogs.
         # Instead, the endpoint includes a list of syslogs that is part of the
         # system config
-        result = [v for k, v in iteritems(self.syslogs)]
+        result = [v for k, v in getattr(self.syslogs, 'iteritems', self.syslogs.items)()]
 
         self.changes = Changes(params=dict(remoteServers=result))
         self.changes.update(self.want._values)

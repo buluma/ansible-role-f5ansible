@@ -267,7 +267,6 @@ RETURN = r'''
 
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.basic import env_fallback
-from ansible.module_utils.six import iteritems
 
 try:
     from library.module_utils.network.f5.bigip import F5RestClient
@@ -366,7 +365,7 @@ class Parameters(AnsibleF5Parameters):
     def normalize_variables(self, variables):
         result = []
         for variable in variables:
-            tmp = dict((str(k), str(v)) for k, v in iteritems(variable))
+            tmp = dict((str(k), str(v)) for k, v in getattr(variable, 'iteritems', variable.items)())
             if 'encrypted' not in tmp:
                 # BIG-IP will inject an 'encrypted' key if you don't provide one.
                 # If you don't provide one, then we give you the default 'no', by
@@ -405,7 +404,7 @@ class Parameters(AnsibleF5Parameters):
     def normalize_list(self, lists):
         result = []
         for list in lists:
-            tmp = dict((str(k), str(v)) for k, v in iteritems(list) if k != 'value')
+            tmp = dict((str(k), str(v)) for k, v in getattr(list, 'iteritems', list.items)() if k != 'value')
             if 'encrypted' not in list:
                 # BIG-IP will inject an 'encrypted' key if you don't provide one.
                 # If you don't provide one, then we give you the default 'no', by
@@ -668,8 +667,8 @@ class Difference(object):
             return None
         if self.have.metadata is None:
             return self.want.metadata
-        want = [(k, v) for d in self.want.metadata for k, v in iteritems(d)]
-        have = [(k, v) for d in self.have.metadata for k, v in iteritems(d)]
+        want = [(k, v) for d in self.want.metadata for k, v in getattr(d, 'iteritems', d.items)()]
+        have = [(k, v) for d in self.have.metadata for k, v in getattr(d, 'iteritems', d.items)()]
         if set(want) != set(have):
             return dict(
                 metadata=self.want.metadata

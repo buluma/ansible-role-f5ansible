@@ -382,7 +382,6 @@ state:
 
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.basic import env_fallback
-from ansible.module_utils.six import iteritems
 
 try:
     from library.module_utils.network.f5.bigip import F5RestClient
@@ -860,7 +859,7 @@ class BaseManager(object):
         # There are **not** individual API endpoints for the individual vectors.
         # Instead, the endpoint includes a list of vectors that is part of the
         # DoS profile
-        result = [v for k, v in iteritems(self.vectors)]
+        result = [v for k, v in getattr(self.vectors, 'iteritems', self.vectors.items)()]
 
         self.changes = Changes(params={vtype: result})
         self.update_on_device()

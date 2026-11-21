@@ -216,7 +216,6 @@ except ImportError:
 
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.basic import env_fallback
-from ansible.module_utils.six import string_types
 from distutils.version import LooseVersion
 
 try:
@@ -325,7 +324,7 @@ class Parameters(AnsibleF5Parameters):
                     result.append(access)
                 else:
                     result.append(access)
-            if isinstance(access, string_types):
+            if isinstance(access, (str, type(u''))):
                 acl = access.split(':')
                 if acl[0].lower() == 'all':
                     acl[0] = 'all-partitions'
